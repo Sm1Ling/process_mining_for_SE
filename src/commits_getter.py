@@ -1,4 +1,6 @@
 import logging
+from pathlib import Path
+from typing import List, Dict
 
 import click
 import pandas as pd
@@ -25,13 +27,19 @@ def _get_commit_data(commit: Commit) -> dict:
 
 @click.argument("access_token", type=str)
 @click.argument("repo_name", type=str)
-@click.argument("log_path", type=str)
-def _get_commits_info(access_token: str, repo_name: str, log_path: str):
+@click.argument("log_path", type=Path)
+@click.option("--stored_commits_folder", type=Path)
+def _get_commits_info(access_token: str,
+                      repo_name: str,
+                      log_path: Path,
+                      stored_commits_folder: Path = None)\
+        -> List[Dict]:
     """
     Gets statistics for commits combined in convenient way for
     process mining
     :param access_token: token of your Github account to get access for api
     :param repo_name: name of parsed repo in format "author/repo_name"
+    :param stored_commits_folder: path where precomputed on previous launches commits are stored
     :return:
     """
     user = Github(access_token, per_page=100)
