@@ -104,6 +104,3 @@ get_issues_info = click.command()(_get_issues_info)
 
 if __name__ == "__main__":
     get_issues_info()
-    # with open("../resources/total_issues.json", "r") as fp:
-    #     res = json.loads(fp.read())
-    # _write_issue_objects_to_table(res, Path("table.csv"))
